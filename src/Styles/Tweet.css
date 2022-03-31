@@ -1,0 +1,90 @@
+/* Selects all element with <p> tags*/
+/*
+p {
+    color: purple;
+}
+*/
+
+/* There is a margin, because CSS has a default margin and padding
+ * This selects everything and removes the default so we can shape
+ * it how we like
+ */
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+/* Uses the dot operator to select the class "tweet-container"*/
+.tweet-container {
+  border: 1px solid black;
+  /* Takes up width just what it needs and add space outside the container */
+  display: inline-block;
+  margin: 10px;
+  /* Adds spacing inside the container against the content inside*/
+  padding: 12px;
+}
+
+.tweet-header {
+  display: flex;
+}
+
+.author-info {
+  display: flex;
+  flex-direction: column;
+  /* Shows the box for this div */
+  /* border: 1px solid red; */
+  /* Try space-between and space-around */
+  justify-content: space-evenly;
+  /* Spaced out more from the image */
+  margin-left: 12px;
+}
+
+.content {
+  /* More spacing between content and header */
+  margin-top: 12px;
+  font-size: 24px;
+}
+
+.time-info {
+  display: flex;
+  margin-top: 12px;
+  color: grey;
+}
+
+/* Don't want time and date to be right next to each other,
+   * so we make the container of time bigger
+   */
+.time {
+  margin-right: 12px;
+}
+
+.button-bar {
+  display: flex;
+}
+
+.button-bar * {
+  margin-right: 12px;
+}
+
+.like-heart {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.create-tweet-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.create-tweet-form * {
+  width: 300px;
+}
+
+.search-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
