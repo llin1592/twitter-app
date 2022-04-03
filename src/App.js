@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Header from "./Components/Header";
 import SearchBar from "./Components/SearchBar";
 import Tweet from "./Components/Tweet";
@@ -20,6 +21,15 @@ function App() {
   return (
     <div>
       <Header />
+      <nav
+        style={{
+          borderBottom: "solid 1px",
+          paddingBottom: "1rem",
+        }}
+      >
+        <Link to="/profile">Profile</Link>
+      </nav>
+
       <div className="search-bar">
         <SearchBar
           searchText={searchText}
