@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Header from "./Components/Header";
 import SearchBar from "./Components/SearchBar";
 import Tweet from "./Components/Tweet";
+import { db } from "./firebase";
+import { collection, addDoc, getDocs } from "firebase/firestore";
 
 // To create a new app, 'npm create-react-app [app name] --template minimal'
 // To run an app, manuver to its directory in the terminal and run 'npm start'
@@ -15,6 +17,15 @@ function App() {
   const [time, setTime] = useState("");
   const [date, setDate] = useState("");
   const [tweets, setTweets] = useState([]);
+
+  // Loads database to page
+  useEffect(() => {
+    let temp = [];
+    getDocs(collection(db, "tweets")).then((snapshot) => {
+      snapshot.forEach((doc) => temp.push(doc.data()));
+      setTweets([...tweets, ...temp]);
+    });
+  }, []);
 
   const [searchText, setSearchText] = useState("");
 
@@ -83,6 +94,9 @@ function App() {
                 content: content,
                 time: time,
                 date: date,
+                likes: 0,
+                retweets: 0,
+                liked: false,
               },
             ]);
             setName("");
@@ -94,10 +108,27 @@ function App() {
         >
           Create new Tweet
         </button>
+
+        {/* <button
+          onClick={() => {
+            addDoc(collection(db, "tweets"), {
+              name: "Leo",
+              handle: "@leo",
+              content: "Hello",
+              time: "1 am",
+              date: "Saturday",
+              likes: 0,
+              retweets: 0,
+              liked: false,
+            });
+          }}
+        >
+          Create new Tweet on Database
+        </button> */}
       </div>
 
       <div className="tweet-list">
-        {searchText == ""
+        {searchText === ""
           ? tweets.map((tweet, i) => (
               <Tweet
                 name={tweet.name}
@@ -105,6 +136,10 @@ function App() {
                 content={tweet.content}
                 time={tweet.time}
                 date={tweet.date}
+                likes={tweet.likes}
+                retweets={tweet.retweets}
+                liked={tweet.liked}
+                key={i}
               />
             ))
           : tweets
@@ -116,6 +151,9 @@ function App() {
                   content={tweet.content}
                   time={tweet.time}
                   date={tweet.date}
+                  likes={tweet.likes}
+                  retweets={tweet.retweets}
+                  liked={tweet.liked}
                   key={i}
                 />
               ))}
